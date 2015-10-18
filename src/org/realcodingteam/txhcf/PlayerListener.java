@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,6 +33,11 @@ public class PlayerListener implements Listener {
 		
 		if (Util.isMiner(player))
 			Util.minerEvent(player);
+		
+		if (player.getWorld().getEnvironment() == Environment.NETHER) {
+			if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER)
+				player.teleport((new Location(Bukkit.getWorld("hcf"), 0, 70, -400)));
+		}
 	}
 	
 	@EventHandler
@@ -114,11 +120,8 @@ public class PlayerListener implements Listener {
 			if (event.getFrom().getWorld().getEnvironment() == Environment.NORMAL) 
 				event.setTo(new Location(Bukkit.getWorld("world_the_end"), 99.5, 58, 37.5));
 		} else if (event.getCause() == TeleportCause.NETHER_PORTAL) {
-			if (event.getTo().getWorld().getEnvironment() == Environment.NORMAL) 
-				event.setTo(new Location(Bukkit.getWorld("hcf"), 0, 70, -400));
 			if (event.getFrom().getWorld().getEnvironment() == Environment.NORMAL) 
 				event.setTo(new Location(Bukkit.getWorld("world_nether"), 0.56, 36, 10.8));
 		}
-		
 	}
 }
