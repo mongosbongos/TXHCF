@@ -12,7 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Util {
 
 	public static boolean isMiner(Player player) {
-
 		for (ItemStack item: player.getInventory().getArmorContents()) {
 			if (!item.getType().name().contains("IRON"))
 				return false;
@@ -22,7 +21,6 @@ public class Util {
 	}
 	
 	public static boolean isArcher(Player player) {
-
 		for (ItemStack item: player.getInventory().getArmorContents()) {
 			if (!item.getType().name().contains("LEATHER"))
 				return false;
@@ -32,7 +30,6 @@ public class Util {
 	}
 	
 	public static boolean isBard(Player player) {
-
 		for (ItemStack item: player.getInventory().getArmorContents()) {
 			if (!item.getType().name().contains("GOLD"))
 				return false;
