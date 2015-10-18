@@ -59,7 +59,7 @@ public class PlayerListener implements Listener {
 		}
 	}
 	
-	@EventHandler//exactly jc
+	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		List<Player> players = FPlayers.getInstance().getByPlayer(player).getFaction().getOnlinePlayers();
@@ -67,7 +67,7 @@ public class PlayerListener implements Listener {
 		switch (event.getAction()) {
 			case RIGHT_CLICK_AIR: 
 			case RIGHT_CLICK_BLOCK:
-				if (Util.isBard(player)) {//yes
+				if (Util.isBard(player)) {
 					List<Player> list = new ArrayList<Player>();
 					ItemStack item = player.getItemInHand();
 					
