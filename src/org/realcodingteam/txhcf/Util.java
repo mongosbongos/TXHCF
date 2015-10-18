@@ -1,5 +1,6 @@
 package org.realcodingteam.txhcf;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -8,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import com.massivecraft.factions.FPlayers;
 
 public class Util {
 
@@ -60,6 +63,7 @@ public class Util {
 				if (isMiner(player)) {
 					player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 1));
 					player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 99999, 2));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999, 0));
 					
 					if (player.getLocation().getY() < 15) 
 						player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 99999, 1));
@@ -71,16 +75,23 @@ public class Util {
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					player.removePotionEffect(PotionEffectType.FAST_DIGGING);
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
+					player.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
 				}
 			}
 		}, 0, 10);
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void bardEvent(final Player player, final List<Player> players) {
+	public static void bardEvent(final Player player) {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(HCF.instance, new BukkitRunnable() {
 			public void run() {
-				if (isBard(player)) {
+				if (isBard(player)) {				
+					List<Player> players = new ArrayList<Player>();
+					
+					for (Player p : FPlayers.getInstance().getByPlayer(player).getFaction().getOnlinePlayers()) {
+						if (player.getLocation().distance(p.getLocation()) < 15)
+							players.add(p);
+					}
 					
 					player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 99999, 1));
 					player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 1));
@@ -88,19 +99,19 @@ public class Util {
 					
 					switch (player.getItemInHand().getType()) {
 					case SUGAR:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 7, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 140, 1), players);
 						break;
 					case BLAZE_POWDER:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 7, 0), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 0), players);
 						break;
 					case IRON_INGOT:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 7, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 140, 1), players);
 						break;
 					case FEATHER:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 7, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 140, 1), players);
 						break;
 					case GHAST_TEAR:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 7, 0), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 140, 0), players);
 						break;
 					default: 
 					}
