@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
@@ -113,7 +114,7 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onTp(PlayerTeleportEvent event) {
+	public void onPortal(PlayerPortalEvent event) {
 		if (event.getCause() == TeleportCause.END_PORTAL) {
 			if (event.getTo().getWorld().getEnvironment() == Environment.NORMAL) 
 				event.setTo(new Location(Bukkit.getWorld("hcf"), 0, 70, -400));
