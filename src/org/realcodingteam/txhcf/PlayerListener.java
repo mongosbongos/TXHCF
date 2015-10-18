@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -40,7 +41,12 @@ public class PlayerListener implements Listener {
 		
 		if (player.getWorld().getEnvironment() == Environment.NETHER) {
 			if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER)
-				player.teleport((new Location(Bukkit.getWorld("hcf"), 0, 70, -400)));
+				player.teleport((new Location(Bukkit.getWorld("world"), 0, 70, -400)));
+		}
+		
+		if (player.getWorld().getEnvironment() == Environment.THE_END) {
+			if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER)
+				player.teleport((new Location(Bukkit.getWorld("world"), 0, 70, -400)));
 		}
 	}
 	
@@ -107,14 +113,15 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
-		if (!(event.getEntity() instanceof Player)) { return; }
 		if (event.getCause() != DamageCause.PROJECTILE) { return; }
 		
 		Projectile proj = (Projectile) event.getDamager();
+		if (!(proj.getShooter() instanceof Player)) { return; }
 		Player player = (Player) proj.getShooter();
 		Location loc = event.getEntity().getLocation();
 		
-		if (Util.isArcher(player)) {
+		if (Util.isArcher((Player) player)) {
+			event.setDamage(DamageModifier.ARMOR, -2);
 			event.setDamage(Util.calcArcherDMG(player.getLocation().distance(loc), event.getDamage()));
 		}
 	}
@@ -138,13 +145,11 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPortal(PlayerPortalEvent event) {
 		if (event.getCause() == TeleportCause.END_PORTAL) {
-			if (event.getTo().getWorld().getEnvironment() == Environment.NORMAL) 
-				event.setTo(new Location(Bukkit.getWorld("hcf"), 0, 70, -400));
 			if (event.getFrom().getWorld().getEnvironment() == Environment.NORMAL) 
-				event.setTo(new Location(Bukkit.getWorld("world_the_end"), 99.5, 58, 37.5));
+				event.setTo(new Location(Bukkit.getWorld("world_the_end"), 89, 58, 37));
 		} else if (event.getCause() == TeleportCause.NETHER_PORTAL) {
 			if (event.getFrom().getWorld().getEnvironment() == Environment.NORMAL) 
-				event.setTo(new Location(Bukkit.getWorld("world_nether"), 0.56, 36, 10.8));
+				event.setTo(new Location(Bukkit.getWorld("world_nether"), 0, 36, 10));
 		}
 	}
 }

@@ -1,3 +1,5 @@
 main: org.realcodingteam.txhcf.HCF
 version: 1.0
-name: HCF+
+name: TXHCF
+description: TX HCF
+authors: [Lightning2552, flash1110]
