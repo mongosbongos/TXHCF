@@ -84,11 +84,11 @@ public class PlayerListener implements Listener {
 					
 					switch (player.getItemInHand().getType()) {
 					case SUGAR:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 160, 2), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 160, 3), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case BLAZE_POWDER:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 160, 1), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 160, 2), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case IRON_INGOT:
@@ -100,7 +100,7 @@ public class PlayerListener implements Listener {
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case GHAST_TEAR:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 160, 1), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 160, 2), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					default: 
