@@ -8,18 +8,21 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.realcodingteam.txhcf.Util;
 
 import com.massivecraft.factions.FPlayers;
 
@@ -77,23 +80,42 @@ public class PlayerListener implements Listener {
 					case SUGAR:
 						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 10, 2), players);
 						item.setAmount(item.getAmount() - 1);
+						break;
 					case BLAZE_POWDER:
 						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 10, 1), players);
 						item.setAmount(item.getAmount() - 1);
+						break;
 					case IRON_INGOT:
 						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, 2), players);
 						item.setAmount(item.getAmount() - 1);
+						break;
 					case FEATHER:
 						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 10, 2), players);
 						item.setAmount(item.getAmount() - 1);
+						break;
 					case GHAST_TEAR:
 						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 10, 1), players);
 						item.setAmount(item.getAmount() - 1);
+						break;
 					default: 
-						
 					}
+					player.setItemInHand(item);
 				}
 			default:
+		}
+	}
+	
+	@EventHandler
+	public void onDamage(EntityDamageByEntityEvent event) {
+		if (!(event.getEntity() instanceof Player)) { return; }
+		if (event.getCause() != DamageCause.PROJECTILE) { return; }
+		
+		Projectile proj = (Projectile) event.getDamager();
+		Player player = (Player) proj.getShooter();
+		Location loc = event.getEntity().getLocation();
+		
+		if (Util.isArcher(player)) {
+			event.setDamage(Util.calcArcherDMG(player.getLocation().distance(loc), event.getDamage()));
 		}
 	}
 	

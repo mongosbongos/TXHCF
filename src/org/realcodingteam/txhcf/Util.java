@@ -3,7 +3,6 @@ package org.realcodingteam.txhcf;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -13,36 +12,33 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Util {
 
 	public static boolean isMiner(Player player) {
-		boolean bool = false;
-		
+
 		for (ItemStack item: player.getInventory().getArmorContents()) {
-			if (item.getType().name().contains("IRON")) bool = true;
-			else bool = false;
+			if (!item.getType().name().contains("IRON"))
+				return false;
 		}
 		
-		return bool;
+		return true;
 	}
 	
 	public static boolean isArcher(Player player) {
-		boolean bool = false;
-		
+
 		for (ItemStack item: player.getInventory().getArmorContents()) {
-			if (item.getType().name().contains("LEATHER")) bool = true;
-			else bool = false;
+			if (!item.getType().name().contains("LEATHER"))
+				return false;
 		}
 		
-		return bool;
+		return true;
 	}
 	
 	public static boolean isBard(Player player) {
-		boolean bool = false;
-		
+
 		for (ItemStack item: player.getInventory().getArmorContents()) {
-			if (item.getType().name().contains("GOLD")) bool = true;
-			else bool = false;
+			if (!item.getType().name().contains("GOLD"))
+				return false;
 		}
 		
-		return bool;
+		return true;
 	}
 	
 	@SuppressWarnings("deprecation")
