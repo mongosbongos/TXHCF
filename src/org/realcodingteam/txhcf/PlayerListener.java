@@ -84,23 +84,23 @@ public class PlayerListener implements Listener {
 					
 					switch (player.getItemInHand().getType()) {
 					case SUGAR:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 10, 2), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 12, 2), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case BLAZE_POWDER:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 10, 1), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 12, 1), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case IRON_INGOT:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, 2), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 12, 2), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case FEATHER:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 10, 2), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 12, 2), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					case GHAST_TEAR:
-						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 10, 1), players);
+						Util.effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 12, 1), players);
 						item.setAmount(item.getAmount() - 1);
 						break;
 					default: 

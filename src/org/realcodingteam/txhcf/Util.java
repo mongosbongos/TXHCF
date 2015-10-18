@@ -63,6 +63,10 @@ public class Util {
 					
 					if (player.getLocation().getY() < 15) 
 						player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 99999, 1));
+					else {
+						if (player.hasPotionEffect(PotionEffectType.INVISIBILITY))
+							player.removePotionEffect(PotionEffectType.INVISIBILITY);
+					}
 				} else {
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					player.removePotionEffect(PotionEffectType.FAST_DIGGING);
@@ -84,19 +88,19 @@ public class Util {
 					
 					switch (player.getItemInHand().getType()) {
 					case SUGAR:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 10, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.SPEED, 7, 1), players);
 						break;
 					case BLAZE_POWDER:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 10, 0), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 7, 0), players);
 						break;
 					case IRON_INGOT:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 7, 1), players);
 						break;
 					case FEATHER:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 10, 1), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.JUMP, 7, 1), players);
 						break;
 					case GHAST_TEAR:
-						effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 10, 0), players);
+						effectNearbyEntities(new PotionEffect(PotionEffectType.REGENERATION, 7, 0), players);
 						break;
 					default: 
 					}
