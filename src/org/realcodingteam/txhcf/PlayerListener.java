@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -23,7 +24,6 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.realcodingteam.txhcf.Util;
 
 import com.massivecraft.factions.FPlayers;
 
@@ -38,6 +38,9 @@ public class PlayerListener implements Listener {
 		
 		if (Util.isMiner(player))
 			Util.minerEvent(player);
+		
+		if (Util.isBard(player)) 
+			Util.bardEvent(player);
 		
 		if (player.getWorld().getEnvironment() == Environment.NETHER) {
 			if (player.getLocation().getBlock().getType() == Material.STATIONARY_WATER)
@@ -62,6 +65,10 @@ public class PlayerListener implements Listener {
 		
 		if (Util.isMiner(player)) {
 			Util.minerEvent(player);
+		}
+		
+		if (Util.isBard(player)) {
+			Util.bardEvent(player);
 		}
 	}
 	
@@ -143,6 +150,17 @@ public class PlayerListener implements Listener {
 		} else if (event.getCause() == TeleportCause.NETHER_PORTAL) {
 			if (event.getFrom().getWorld().getEnvironment() == Environment.NORMAL) 
 				event.setTo(new Location(Bukkit.getWorld("world_nether"), 0, 36, 10));
+		}
+	}
+	
+	@EventHandler
+	public void onCraft(CraftItemEvent event) {
+		ItemStack item = event.getRecipe().getResult();
+		
+		if (item.getType() == Material.GOLDEN_APPLE) {
+			if (item.getData().getData() == (short) 1) {
+				event.setCancelled(true);
+			}
 		}
 	}
 }
